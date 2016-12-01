@@ -2905,7 +2905,7 @@ void main() //OK
         printf("                          ||                                                       ||\n");
         printf("                          ||                      INÍCIO                           ||\n");
         printf("                          -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n");
-        printf("                                  [1] LOGIN   [2] FECHAR   [3] SOBRE\n\n");
+        printf("                                          [1] LOGIN   [2] FECHAR\n\n");
         printf("                                 Digite uma das opções para continuar: ");
         fflush(stdin);
         fgets(UserChoice, 2, stdin);
