@@ -1,0 +1,1 @@
+Pasta para armazenar os arquivos dos quartos.
