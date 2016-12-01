@@ -23,3 +23,12 @@
 [QuartosDesocupados.txt] 	- Guarda apenas o número dos quartos desocupados
 [QuartosOcupados.txt]		- Guarda apenas o número dos quartos ocupados
 [Quartos.txt]	 		- Guarda o número e capacidade dos quartos
+
+
+
+******************************Primeiro Login***************************************
+
+Usuário: admin
+Senha: admin123
+
+***********************************************************************************
