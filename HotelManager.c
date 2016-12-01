@@ -269,9 +269,9 @@ int cadastrar_funcionario() //OK
         }
     }
 
-    fclose(arq_admin);//FECHA ARQUIVO DOS ADMINISTRADORES
-    fclose(arq_funcionarios);//FECHA ARQUIVO DOS FUNCIONÁRIOS
-    fclose(arq_nomes_registrados);//FECHA ARQUIVO GERAL DOS NOMES
+    fclose(arq_admin);
+    fclose(arq_funcionarios);
+    fclose(arq_nomes_registrados);
 
     return 0;
 }
@@ -447,7 +447,6 @@ int remover_funcionario() //OK
             countLine = 0;
             while(stop == 0)
             {
-                //**********************Algoritmo para pegar o nome de usuário a partir da linha que contem o nome e senha juntos.*****************************************************
                 i=0;
                 memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
                 while((c = fgetc(arq_admin)) != EOF && (char) c != '\t' && (char) c != '\n')
@@ -459,9 +458,8 @@ int remover_funcionario() //OK
                     stop = 1;
                     removeFromAdmFile = 1;
                 }
-                //*********************************************************************************************************************************************************************
 
-                //**********************Algoritmo para pegar o nome de usuário a partir da linha que contem o nome e senha juntos.*****************************************************
+
                 j=0;
                 memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
                 while((c = fgetc(arq_funcionarios)) != EOF && (char) c != '\t' && (char) c != '\n')
@@ -472,7 +470,6 @@ int remover_funcionario() //OK
                 {
                     stop = 1;
                 }
-                //*********************************************************************************************************************************************************************
 
                 countLine++; //Só precisamos contar os números ímpares desta variável para saber em qual linha está o usuário desejado.
             }
@@ -557,16 +554,15 @@ int remover_funcionario() //OK
             }
 
 
-            arq_nomes_registrados = fopen("Login/Geral_nomes.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES PARA LEITURA
+            arq_nomes_registrados = fopen("Login/Geral_nomes.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES
 
-            //**********************Algoritmo para pegar o nome de usuário*****************************************************
             stop = 0;
             countLine = 0;
             while(stop == 0)
             {
 
                 i=0;
-                memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+                memset(aux, 0, sizeof(aux));
                 while((c = fgetc(arq_nomes_registrados)) != EOF && (char) c != '\t' && (char) c != '\n')
                 {
                     aux[i++] = (char) c;
@@ -578,7 +574,6 @@ int remover_funcionario() //OK
                 countLine++;
 
             }
-            //*****************************************************************************************************************
 
             fclose(arq_nomes_registrados);//FECHA ARQUIVO GERAL DOS NOMES
 
@@ -661,14 +656,14 @@ int adicionar_quarto() //OK
     OkToRegister=0;
     while(OkToRegister==0)
     {
-        arq_quartos = fopen("Quartos/Quartos.txt", "r"); //ABRE ARQUIVO DOS QUARTOS
-        //**********************Algoritmo para pegar o texto na primeira coluna do arquivo*****************************************************
+        arq_quartos = fopen("Quartos/Quartos.txt", "r");
+
         stop = 0;
         countLine = 0;
         while(stop == 0)
         {
             i=0;
-            memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+            memset(aux, 0, sizeof(aux));
             while((c = fgetc(arq_quartos)) != EOF && (char) c != '\t' && (char) c != '\n')
             {
                 aux[i++] = (char) c;
@@ -683,10 +678,10 @@ int adicionar_quarto() //OK
                 stop = 1;
                 OkToRegister = 1;
             }
-            countLine++; //Só precisamos contar os números ímpares desta variável para saber em qual linha está o usuário desejado.
+            countLine++;
         }
-        //*****************************************************************************************************************
-        fclose(arq_quartos);//FECHA ARQUIVO DOS QUARTOS
+
+        fclose(arq_quartos);
 
         if(OkToRegister==0)
         {
@@ -704,7 +699,7 @@ int adicionar_quarto() //OK
         }
     }
 
-    arq_quartos = fopen("Quartos/Quartos.txt", "a"); //ABRE ARQUIVO DOS QUARTOS
+    arq_quartos = fopen("Quartos/Quartos.txt", "a");
 
     if(arq_quartos == NULL)
     {
@@ -724,7 +719,7 @@ int adicionar_quarto() //OK
             fprintf(desocupados, "%s", numQuarto);
             numQuarto[strcspn(numQuarto, "\n")] = 0;
         }
-        fclose(desocupados);//FECHA ARQUIVO DOS QUARTOS DESOCUPADOS
+        fclose(desocupados);
 
         strcat(numQuarto, "\t");
         strcat(qtdPessoas, "\n");
@@ -732,7 +727,7 @@ int adicionar_quarto() //OK
 
         fprintf(arq_quartos, "%s", numQuarto);
     }
-    fclose(arq_quartos);//FECHA ARQUIVO DOS QUARTOS
+    fclose(arq_quartos);
 
     return 0;
 }
@@ -762,8 +757,8 @@ int remover_quarto() //OK
 
     system("cls");
 
-    arq_quartos = fopen("Quartos/Quartos.txt", "r");//ABRE ARQUIVO DOS QUARTOS
-    desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS QUARTOS
+    arq_quartos = fopen("Quartos/Quartos.txt", "r");
+    desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
     ocupados = fopen("Quartos/QuartosOcupados.txt", "r");
 
     if(arq_quartos == NULL || desocupados == NULL)
@@ -825,7 +820,7 @@ int remover_quarto() //OK
         {
             while(encontrado != 1)
             {
-                desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS QUARTOS
+                desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
 
                 if(desocupados == NULL)
                 {
@@ -837,7 +832,7 @@ int remover_quarto() //OK
                     while(stop == 0)
                     {
                         i=0;
-                        memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+                        memset(aux, 0, sizeof(aux));
                         while(fgets(numQuarto, 11, desocupados) != NULL)
                         {
                             numQuarto[strcspn(numQuarto, "\n")] = 0;
@@ -882,10 +877,9 @@ int remover_quarto() //OK
                         {
                             encontrado = 1;
                         }
-                        //*****************************************************************************************************************
                     }
                 }
-                fclose(desocupados);//FECHA ARQUIVO GERAL DOS QUARTOS
+                fclose(desocupados);
             }
 
             stop = 0;
@@ -893,7 +887,7 @@ int remover_quarto() //OK
             while(stop == 0)
             {
                 i=0;
-                memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+                memset(aux, 0, sizeof(aux));
                 while((c = fgetc(arq_quartos)) != EOF && (char) c != '\t' && (char) c != '\n')
                 {
                     aux[i++] = (char) c;
@@ -902,12 +896,12 @@ int remover_quarto() //OK
                 {
                     stop = 1;
                 }
-                countLine++; //Só precisamos contar os números ímpares desta variável para saber em qual linha está o quarto desejado.
+                countLine++;
             }
-            fclose(arq_quartos);//FECHA ARQUIVO DOS QUARTOS
+            fclose(arq_quartos);
 
-            arq_quartos = fopen(inFile, "r");//ABRE ARQUIVO DOS QUARTOS
-            tmpFile =  fopen(outFile, "w+");//ABRE ARQUIVO TEMPORÁRIO
+            arq_quartos = fopen(inFile, "r");
+            tmpFile =  fopen(outFile, "w+");
 
             if(arq_quartos == NULL && tmpFile == NULL)
             {
@@ -925,8 +919,8 @@ int remover_quarto() //OK
                     i++;
                 }
             }
-            fclose(tmpFile);//FECHA ARQUIVO TEMPORÁRIO
-            fclose(arq_quartos);//FECHA ARQUIVO DOS QUARTOS
+            fclose(tmpFile);
+            fclose(arq_quartos);
 
             if(remove(inFile) != 0)
             {
@@ -939,7 +933,7 @@ int remover_quarto() //OK
                 system("pause");
             }
 
-            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES PARA LEITURA
+            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
 
             stop = 0;
             countLine = 0;
@@ -947,7 +941,7 @@ int remover_quarto() //OK
             {
 
                 i=0;
-                memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+                memset(aux, 0, sizeof(aux));
                 while((c = fgetc(desocupados)) != EOF && (char) c != '\t' && (char) c != '\n')
                 {
                     aux[i++] = (char) c;
@@ -960,10 +954,10 @@ int remover_quarto() //OK
 
             }
 
-            fclose(desocupados);//FECHA ARQUIVO GERAL DOS QUARTOS
+            fclose(desocupados);
 
-            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS QUARTOS
-            tmpFile =  fopen(outFile, "w+");//ABRE ARQUIVO TEMPORÁRIO
+            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
+            tmpFile =  fopen(outFile, "w+");
 
             if(desocupados == NULL && tmpFile == NULL)
             {
@@ -981,8 +975,8 @@ int remover_quarto() //OK
                     i++;
                 }
             }
-            fclose(desocupados);//FECHA ARQUIVO GERAL DOS QUARTOS
-            fclose(tmpFile);//FECHA ARQUIVO TEMPORÁRIO
+            fclose(desocupados);
+            fclose(tmpFile);
 
             if(remove("Quartos/QuartosDesocupados.txt") != 0)
             {
@@ -1342,7 +1336,7 @@ int consultaGeral() //OK
     {
         while(encontrado != 1)
         {
-            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS QUARTOS
+            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
 
             if(desocupados == NULL)
             {
@@ -1389,20 +1383,19 @@ int consultaGeral() //OK
                             encontrado = 1;
                         }
                     }
-                    //*****************************************************************************************************************
                 }
             }
-            fclose(desocupados);//FECHA ARQUIVO GERAL DOS QUARTOS
+            fclose(desocupados);
         }
 
-        desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES PARA LEITURA
+        desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
         stop = 0;
         countLine = 0;
         while(stop == 0)
         {
 
             i=0;
-            memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+            memset(aux, 0, sizeof(aux));
             while((c = fgetc(desocupados)) != EOF && (char) c != '\t' && (char) c != '\n')
             {
                 aux[i++] = (char) c;
@@ -1603,7 +1596,7 @@ int consultaporquantidade() //OK
     {
         while(encontrado != 1)
         {
-            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS QUARTOS
+            desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
 
             if(desocupados == NULL)
             {
@@ -1653,17 +1646,17 @@ int consultaporquantidade() //OK
                     //*****************************************************************************************************************
                 }
             }
-            fclose(desocupados);//FECHA ARQUIVO GERAL DOS QUARTOS
+            fclose(desocupados);
         }
 
-        desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES PARA LEITURA
+        desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");
         stop = 0;
         countLine = 0;
         while(stop == 0)
         {
 
             i=0;
-            memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+            memset(aux, 0, sizeof(aux));
             while((c = fgetc(desocupados)) != EOF && (char) c != '\t' && (char) c != '\n')
             {
                 aux[i++] = (char) c;
@@ -1674,7 +1667,7 @@ int consultaporquantidade() //OK
             }
             countLine++;
         }
-        fclose(desocupados);//FECHA ARQUIVO GERAL DOS QUARTOS
+        fclose(desocupados);
 
 
         desocupados = fopen("Quartos/QuartosDesocupados.txt", "r");//ABRE ARQUIVO DOS QUARTOS DESOCUPADOS
@@ -1858,13 +1851,13 @@ int co_PorNome() //OK
 
 
 
-    ocupados = fopen("Quartos/QuartosOcupados.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES PARA LEITURA
+    ocupados = fopen("Quartos/QuartosOcupados.txt", "r");
     stop = 0;
     countLine = 0;
     while(stop == 0)
     {
         i=0;
-        memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+        memset(aux, 0, sizeof(aux));
         while((c = fgetc(ocupados)) != EOF && (char) c != '\t' && (char) c != '\n')
         {
             aux[i++] = (char) c;
@@ -2027,13 +2020,13 @@ int co_PorNumero() //OK
     strcat(openfile, nomeHospede);
     strcat(openfile, ".txt");
 
-    ocupados = fopen("Quartos/QuartosOcupados.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES PARA LEITURA
+    ocupados = fopen("Quartos/QuartosOcupados.txt", "r");
     stop = 0;
     countLine = 0;
     while(stop == 0)
     {
         i=0;
-        memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+        memset(aux, 0, sizeof(aux));
         while((c = fgetc(ocupados)) != EOF && (char) c != '\n')
         {
             aux[i++] = (char) c;
@@ -2241,13 +2234,13 @@ int co_Geral() //OK
 
 
 
-    ocupados = fopen("Quartos/QuartosOcupados.txt", "r");//ABRE ARQUIVO GERAL DOS NOMES PARA LEITURA
+    ocupados = fopen("Quartos/QuartosOcupados.txt", "r");
     stop = 0;
     countLine = 0;
     while(stop == 0)
     {
         i=0;
-        memset(aux, 0, sizeof(aux));//Resetar string aux toda vez antes de reiniciar o segundo while (abaixo).
+        memset(aux, 0, sizeof(aux));
         while((c = fgetc(ocupados)) != EOF && (char) c != '\t' && (char) c != '\n')
         {
             aux[i++] = (char) c;
@@ -2258,7 +2251,7 @@ int co_Geral() //OK
         }
         countLine++;
     }
-    fclose(ocupados);//FECHA ARQUIVO GERAL DOS QUARTOS
+    fclose(ocupados);
 
 
     desocupados = fopen("Quartos/QuartosDesocupados.txt", "a");//ABRE ARQUIVO DOS QUARTOS DESOCUPADOS
@@ -2285,9 +2278,9 @@ int co_Geral() //OK
             i++;
         }
     }
-    fclose(tmpFile);//FECHA ARQUIVO TEMPORÁRIO
-    fclose(ocupados);//FECHA ARQUIVO DOS QUARTOS OCUPADOS
-    fclose(desocupados);//FECHA ARQUIVO DOS QUARTOS DESOCUPADOS
+    fclose(tmpFile);
+    fclose(ocupados);
+    fclose(desocupados);
     fclose(tmpFile);
     fclose(ocupados);
     fclose(desocupados);
