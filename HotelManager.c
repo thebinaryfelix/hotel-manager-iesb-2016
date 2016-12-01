@@ -142,6 +142,8 @@ int loggedIn() //OK
         }
     }
 
+    //Este programa foi desenvolvido por Mateus C. F. Oliveira
+
     if(UserNotFound == 2)
     {
         system("cls");
@@ -1230,6 +1232,8 @@ int DadosHospede(char *a) //OK
 
 
     nomePrincipal[strcspn(nomePrincipal, "\n")] = 0;
+
+    //Este programa foi desenvolvido por Mateus C. F. Oliveira
 
     strcpy(arqQuartos, "Quartos/Hospedes/ArqQuartos/");
     strcat(arqQuartos, nomePrincipal);
