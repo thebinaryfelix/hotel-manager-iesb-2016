@@ -217,10 +217,6 @@ int cadastrar_funcionario() //OK
             while(fgets(line, 11, arq_nomes_registrados) != NULL && verificador==0)
             {
                 line[strcspn(line, "\n")] = 0;
-                printf("nome: %s", nome);
-                printf("linha: %s", line);
-                printf("______");
-                system("pause");
                 if(strcmp(line, nome)==0)
                 {
 
@@ -251,6 +247,7 @@ int cadastrar_funcionario() //OK
     }
     else
     {
+        strcat(nome, "\n");
 
         fprintf(arq_nomes_registrados, "%s", nome);
 
@@ -540,6 +537,8 @@ int remover_funcionario() //OK
 
                 fclose(arq_funcionarios);//FECHA ARQUIVO DOS FUNCIONÁRIOS
                 fclose(tmpFile);//FECHA ARQUIVO TEMPORÁRIO
+                fclose(arq_admin);
+                fclose(arq_funcionarios);
 
 
                 if(remove("Login/Funcionarios.txt") != 0)
@@ -1068,7 +1067,7 @@ int DadosHospede(char *a) //OK
 
 
 
-    printf("\n\n\t************************Dados do Hóspede************************\n\n");
+    printf("\n\n\t===========================[Dados do Hóspede]===========================\n\n");
     printf("\n\tNome do hóspede principal (SEM ACENTOS): ");
     fflush(stdin);
     fgets(nomePrincipal, 31, stdin);
@@ -1144,7 +1143,7 @@ int DadosHospede(char *a) //OK
                 {
                     stop = 1;
                     encontrado = 0;
-                    printf("\n\tQuantidade de hóspedes é diferente da capacidade do quarto.\nFavor informar outro número ou SAIR para cancelar: ");
+                    printf("\n\tQuantidade de hóspedes é diferente da capacidade do quarto.\n\tFavor informar outro número ou SAIR para cancelar: ");
                     fflush(stdin);
                     fgets(numHospedes, 11, stdin);
                     numHospedes[strcspn(numHospedes, "\n")] = 0;
@@ -2492,9 +2491,7 @@ int quarto_maisCheckIn() //OK
 
     fclose(open);
 
-    printf("\n\n                                    O quarto com mais check-in foi o [%s].\n\n\n", maior);
-    printf("\t\t\t\t");
-    system("pause");
+    printf("\n                    Quarto com mais check-in:\t\t\t\t[%s].", maior);
 
     return 0;
 }
@@ -2570,9 +2567,7 @@ int MaiorQuarto() //OK
     fclose(quartos);
 
 
-    printf("\n                                       Quarto com maior capacidade é o [%s]\n\n", maior);
-    printf("\t\t\t\t    ");
-    system("pause");
+    printf("\n                    Quarto com maior capacidade:\t\t\t[%s]", maior);
 
     return 0;
 }
@@ -2668,15 +2663,11 @@ int MaiorQuartoDesocupado() //OK
 
     if(existe != 0)
     {
-        printf("\n                                       Quarto com maior capacidade é o [%s]\n\n", maior);
-        printf("\t\t\t\t    ");
-        system("pause");
+        printf("\n                    Quarto desocupado com maior capacidade:\t\t[%s]", maior);
     }
     else
     {
-        printf("\n                                       Todos os quartos estão ocupados.\n\n");
-        printf("\t\t\t\t    ");
-        system("pause");
+        printf("\n                    Todos os quartos estão ocupados.");
     }
 
     return 0;
@@ -2734,9 +2725,7 @@ int funcionario_maisCheckIn() //OK
     }
     fclose(open);
 
-    printf("\n\n                             O funcionário que mais realizou check-in foi [%s].\n\n\n", maior);
-    printf("\t\t\t\t");
-    system("pause");
+    printf("\n                    Funcionário com mais check-in:\t\t\t[%s].", maior);
 
 
     return 0;
@@ -2794,9 +2783,7 @@ int hospede_maisCheckIn() //OK
     }
     fclose(open);
 
-    printf("\n\n                              O hóspede que mais realizou check-in foi [%s].\n\n\n", maior);
-    printf("\t\t\t\t");
-    system("pause");
+    printf("\n                    Hóspede que mais fez check-in:\t\t\t[%s].\n", maior);
 
 
     return 0;
@@ -2818,18 +2805,21 @@ int relatorios() //OK
         printf("                          ||                                                       ||\n");
         printf("                          ||                      RELATÓRIOS                       ||\n");
         printf("                          -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n");
-        printf("                                        [1] - Quarto que mais recebeu check-in\n");
-        printf("                                        [2] - Quarto com maior capacidade\n");
-        printf("                                        [3] - Quarto desocupado com maior capacidade\n");
-        printf("                                        [4] - Funcionário que mais fez check-in\n");
-        printf("                                        [5] - Hóspede que mais fez check-in\n");
-        printf("                                        [6] - Retornar ao Menu do Funcionário\n");
+
+        quarto_maisCheckIn();
+        MaiorQuarto();
+        MaiorQuartoDesocupado();
+        funcionario_maisCheckIn();
+        hospede_maisCheckIn();
+
+        printf("\n\n                                        [1] - Retornar ao Menu do Funcionário\n");
         printf("                                         ");
         fflush(stdin);
+
+
         fgets(UserChoice, 2, stdin); //Pegar entrada como "char" para evitar loop indevido caso usuário digite uma letra ao invés de um "int".
         UserChoice[strcspn(UserChoice, "\n")] = 0; //Eliminar \n da string.
-        if(strcmp(UserChoice, "0")!=0 && strcmp(UserChoice, "1")!=0 && strcmp(UserChoice, "2")!=0 && strcmp(UserChoice, "3")!=0
-                && strcmp(UserChoice, "4")!=0 && strcmp(UserChoice, "5")!=0 && strcmp(UserChoice, "6")!=0)
+        if(strcmp(UserChoice, "0")!=0 && strcmp(UserChoice, "1")!=0)
         {
             system("cls");
             printf("                                                Opção inválida.\n\n");
@@ -2840,47 +2830,12 @@ int relatorios() //OK
             {
                 choice = 1;
             }
-            else if(strcmp(UserChoice, "2")==0)
-            {
-                choice = 2;
-            }
-            else if(strcmp(UserChoice, "3")==0)
-            {
-                choice = 3;
-            }
-            else if(strcmp(UserChoice, "4")==0)
-            {
-                choice = 4;
-            }
-            else if(strcmp(UserChoice, "5")==0)
-            {
-                choice = 5;
-            }
-            else if(strcmp(UserChoice, "6")==0)
-            {
-                choice = 6;
-            }
         }
     }
 
     switch(choice)
     {
     case 1:
-        choice = quarto_maisCheckIn();
-        break;
-    case 2:
-        choice = MaiorQuarto();
-        break;
-    case 3:
-        choice = MaiorQuartoDesocupado();
-        break;
-    case 4:
-        choice = funcionario_maisCheckIn();
-        break;
-    case 5:
-        choice = hospede_maisCheckIn();
-        break;
-    case 6:
         system("cls");
         return 3;
         break;
